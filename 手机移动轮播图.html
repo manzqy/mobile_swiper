@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="swiper">
+        <ul>
+          <li>
+            <a href=""><img src="./images/6.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/1.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/2.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/3.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/4.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/5.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/6.jpg" alt=""/></a>
+          </li>
+          <li>
+            <a href=""><img src="./images/1.jpg" alt=""/></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script src="./07-zepto.js"></script>
+  <script src="./08-touch.js"></script>
+  <script>
+    let currentIndex = 1;
+    let currentWidth = $(".swiper")[0].clientWidth;
+    let ul = $("ul")[0];
+    $("ul").css("transition", "transform 0s");
+    $("ul").css("transform", `translateX(${-currentWidth}px)`);
+    setTimeout(function() {
+      ul.style.transitionDuration = "";
+    }, 10);
+    $(".swiper").on("swipeLeft", function() {
+      if (currentIndex >= $("li").length - 1) {
+        return;
+      }
+      currentIndex++;
+      let trueWidth = currentWidth * currentIndex * -1 + "px";
+      $("ul").css("transform", `translateX(${trueWidth})`);
+    });
+    $(".swiper").on("swipeRight", function() {
+      if (currentIndex <= 0) {
+        return;
+      }
+      currentIndex--;
+      let trueWidth = currentWidth * currentIndex * -1 + "px";
+      $("ul").css("transform", `translateX(${trueWidth})`);
+    });
+    ul.addEventListener("transitionend", function() {
+      if (currentIndex >= $("li").length - 1) {
+        currentIndex = 1;
+        $("ul").css("transition", "transform 0s");
+        $("ul").css("transform", `translate(${-currentWidth}px)`);
+        setTimeout(function() {
+          ul.style.transitionDuration = "";
+        }, 10);
+      }
+      if (currentIndex <= 0) {
+        currentIndex = $("li").length - 2;
+        $("ul").css("transition", "transform 0s");
+        $("ul").css(
+          "transform",
+          `translate(${-currentWidth * currentIndex}px)`
+        );
+        setTimeout(function() {
+          ul.style.transitionDuration = "";
+        }, 10);
+      }
+    });
+  </script>
+</html>
